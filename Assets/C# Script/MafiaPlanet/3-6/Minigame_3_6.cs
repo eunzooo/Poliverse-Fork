@@ -66,7 +66,7 @@ public class Minigame_3_6 : MiniGameBase
                 lightController?.ShowRed();
                 break;
 
-            case "Input":
+            case "RecordCheck":
                 JudgeRecordingNode();
                 break;
 
@@ -87,12 +87,12 @@ public class Minigame_3_6 : MiniGameBase
         if (isRecording)
         {
             ReportManualSuccess();
-            //Debug.Log("[3-6] Manual Perfect");
+           // Debug.Log("[3-6] Manual Success");
         }
         else
         {
             ReportManualFail();
-            //Debug.Log("[3-6] Manual Miss");
+           // Debug.Log("[3-6] Manual Fail");
         }
     }
 
