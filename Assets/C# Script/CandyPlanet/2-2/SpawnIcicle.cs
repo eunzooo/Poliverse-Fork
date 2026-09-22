@@ -27,23 +27,6 @@ public class SpawnIcicle : MonoBehaviour
         minigame2_2 = GetComponentInParent<MiniGame2_2>();
         player = GetComponent<CapsuleCollider2D>();
     }
-   
-
-    void OnEnable()
-    {
-        Icicle.OnIcicleFalling += HandleIcicleFalling;
-    }
-
-    void OnDisable()
-    {
-        Icicle.OnIcicleFalling -= HandleIcicleFalling;
-    }
-
-    private void Start()
-    {
-        SpawnNext();
-    }
-
     private void HandleIcicleFalling()
     {
         // 이미 모든 고드름을 다 생성했으면 종료
@@ -51,26 +34,20 @@ public class SpawnIcicle : MonoBehaviour
 
         SpawnNext();
     }
-
-    private void SpawnNext()
+    public void SpawnNext()
     {
-        // 생성 위치와 고드름 생성 (minigame2_2 오브젝트의 자식으로)
         Vector3 pos = new Vector3(currentX, transform.position.y, transform.position.z);
         GameObject icicle = Instantiate(iciclePrefab, pos, Quaternion.identity, minigame2_2.transform);
 
-        // 고드름 스크립트 가져오기
         Icicle icicleScript = icicle.GetComponent<Icicle>();
+        icicleScript.OnIcicleFalling += HandleIcicleFalling;   // 이 고드름 하나에만 구독
 
-        // 다음 생성 준비
         float delay = spawnDelays[index];
         icicleScript.StartIcicle(delay);
 
         currentX += step;
         index++;
     }
-
-
-
 
     private IEnumerator DelayAndSpawn()
     {
@@ -83,15 +60,12 @@ public class SpawnIcicle : MonoBehaviour
         index++;
         waiting = false;
     }
-
     private void Spawn()
     {
         Vector3 pos = new Vector3(currentX, transform.position.y, transform.position.z);
         Instantiate(iciclePrefab, pos, Quaternion.identity);
         currentX += step;
     }
-
-
     private IEnumerator SpawnLoop()
     {
         float currentX = startX;

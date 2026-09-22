@@ -22,7 +22,7 @@ public class FoodSpawn_2_14 : MonoBehaviour
     {
         Vector3 spawnPos = GetOutsidePosition();
 
-        GameObject food = Instantiate(foodPrefab, spawnPos, Quaternion.identity);
+        GameObject food = Instantiate(foodPrefab, spawnPos, Quaternion.identity, transform);
 
         SpriteRenderer sr = food.GetComponent<SpriteRenderer>();
 

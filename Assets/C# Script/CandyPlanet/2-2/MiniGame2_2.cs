@@ -13,7 +13,7 @@ public class MiniGame2_2 : MiniGameBase
 
     private bool ended;
     public int missCount = 0;
-
+    [SerializeField] SpawnIcicle spawnIcicle;
   
     public override void StartGame()
     {
@@ -40,11 +40,10 @@ public class MiniGame2_2 : MiniGameBase
         if (ended) return;
         Debug.Log($"{gameObject.name} ¸®µë¸Þ¼¼Áö: {action}");
         action = action.Trim();
-        if (action == "Input")
+        if (action == "PatternStart")
         {
+            spawnIcicle.SpawnNext();
         }
-        
-
     }
     public override void OnPlayerInput(string action = null)
     {

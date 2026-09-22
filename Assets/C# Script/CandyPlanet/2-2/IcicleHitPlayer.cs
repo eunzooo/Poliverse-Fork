@@ -5,32 +5,22 @@ using UnityEngine;
 
 public class IcicleHitPlayer : MonoBehaviour
 {
-    private MiniGame2_2 minigame_2_2;
-    public GameObject stage_2_2;
     public PlayerMoveByClick playerMove;
 
-    private void Start()
+    private void OnTriggerEnter2D(Collider2D coll)
     {
-        minigame_2_2 = stage_2_2.GetComponent<MiniGame2_2>();
-    }
-    private void OnTriggerEnter2D(Collider2D coll) 
-    {
-        // 태그가 Icicle인 것과 충돌했는지 확인
-        if (coll.CompareTag("Icicle"))
-        {
-            Debug.Log("충돌 감지 성공!");
+        if (!coll.CompareTag("Icicle")) return;
 
-            minigame_2_2.missCount++;
-            minigame_2_2.CheckGameResult();
+        // 부딪힌 고드름이 속한 미니게임 인스턴스를 그 자리에서 찾음
+        MiniGame2_2 minigame_2_2 = coll.GetComponentInParent<MiniGame2_2>();
+        if (minigame_2_2 == null) return;
 
-            // 플레이어 본인의 이동 스크립트 호출
-            var playerMove = GetComponent<PlayerMoveByClick>();
-            if (playerMove != null)
-            {
-                playerMove.ForceMove();
-                minigame_2_2.missCount++;
-            }
-        }
+        Debug.Log("충돌 감지 성공!");
+        minigame_2_2.missCount++;
+        minigame_2_2.CheckGameResult();
+
+        var move = GetComponent<PlayerMoveByClick>();
+        if (move != null) move.ForceMove();
     }
 
 

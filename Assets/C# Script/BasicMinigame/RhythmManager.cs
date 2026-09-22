@@ -57,6 +57,7 @@ public class RhythmManager :
     private MiniGameBase currentMinigame;
     private string currentMinigameId;
     private bool isRunning;
+    public double SongTimePublic => SongTime;
 
     // 연습 씬처럼 이 RhythmManager가
     // 음악까지 직접 재생할 때만 true가 된다.
@@ -347,7 +348,8 @@ public class RhythmManager :
             if (string.IsNullOrWhiteSpace(line))
                 continue;
 
-            string[] parts = line.Split(',');
+            char delimiter = line.Contains("\t") ? '\t' : ',';   
+            string[] parts = line.Split(delimiter);
 
             if (parts.Length == 0)
                 continue;
@@ -466,10 +468,9 @@ public class RhythmManager :
         eventIndex = 0;
     }
 
-    public void StartSong()
+    public void StartSong(double? syncDspStartTime = null)
     {
-        double startTime =
-            AudioSettings.dspTime;
+        double startTime = syncDspStartTime ?? AudioSettings.dspTime;
 
         // 연습 모드에서만 설정되는 음악이다.
         if (playAudioWithTimeline &&

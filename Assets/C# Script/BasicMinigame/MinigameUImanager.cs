@@ -119,6 +119,7 @@ public class MinigameUIManager : MonoBehaviour
     private bool preparedReady = false;
 
     private double bgmStartDspTime;
+    private float pendingStartT;
     private bool bgmScheduled = false;
     private bool bgmActuallyStarted = false;
     private double gameplayStartDspTime;
@@ -505,6 +506,7 @@ public class MinigameUIManager : MonoBehaviour
         for (int i = 0; i < gameCount; i++)
         {
             float startT = GetTimelineStartTime(i);
+            pendingStartT = startT;
             float preEndT = Mathf.Max(0f, startT - preEndGap);
 
             // 시작 직전 검은 패널 띄우고 이전 미니게임 제거
@@ -597,6 +599,9 @@ public class MinigameUIManager : MonoBehaviour
             if (planetCsvs != null && idx >= 0 && idx < planetCsvs.Length)
                 csv = planetCsvs[idx];
 
+            if (csv == null)
+                Debug.LogWarning($"[MinigameUIManager] planetCsvs[{idx}] is NULL. (selectedPlanet={selectedPlanet})");
+
             yield return ConfigureRhythmRoutine(preparedMinigame, minigameId, csv);
             RefreshRhythmWindows();
         }
@@ -630,7 +635,7 @@ public class MinigameUIManager : MonoBehaviour
 
         // 그 다음 노드 실행
         if (rhythmManager != null)
-            rhythmManager.StartSong();
+            rhythmManager.StartSong(bgmStartDspTime + pendingStartT);
     }
 
     private IEnumerator WaitUntilBGMTime(float t)
@@ -867,6 +872,9 @@ public class MinigameUIManager : MonoBehaviour
 
             yield return ConfigureRhythmRoutine(currentMinigame, minigameId, csv);
             RefreshRhythmWindows();
+
+            if (csv == null)
+                Debug.LogWarning($"[MinigameUIManager] planetCsvs[{idx}] is NULL. 리듬 차트 로드 실패 가능");
         }
 
         StartMinigame();
@@ -876,6 +884,9 @@ public class MinigameUIManager : MonoBehaviour
     {
         var task = rhythmManager.ConfigureForMinigameAsync(targetMinigame, minigameId, csv);
         while (!task.IsCompleted) yield return null;
+
+        if (task.IsFaulted)
+            Debug.LogError($"[MinigameUIManager] {minigameId} 차트 로드 실패: {task.Exception?.GetBaseException().Message}");
     }
 
     private void RefreshRhythmWindows()
