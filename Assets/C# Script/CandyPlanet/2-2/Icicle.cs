@@ -22,9 +22,9 @@ public class Icicle : MonoBehaviour
     private SpriteRenderer sr;
     private Rigidbody2D rb;
 
-    public static event Action OnIcicleFalling;
+    public event Action OnIcicleFalling;
 
-    private RhythmManagerTest rhythmTest;
+    private RhythmManager rhythmTest;
     private double spawnSongTime;
     private bool hasCapturedStartTime = false; // 실제 곡 시작 이후 기준 시간을 잡았는지 여부
 
@@ -33,7 +33,7 @@ public class Icicle : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         rb.isKinematic = true; //떨어지기 전까지 고정
-        rhythmTest = FindObjectOfType<RhythmManagerTest>();
+        rhythmTest = FindObjectOfType<RhythmManager>();
     }
 
     public static void RaiseMoveAllowed()
@@ -92,7 +92,7 @@ public class Icicle : MonoBehaviour
         isFalling = true;
         sr.sprite = fallingSprite;
         rb.isKinematic = false;
-        OnIcicleFalling?.Invoke(); // SpawnIcicle에게 다음 고드름 생성 신호 전달
+        OnIcicleFalling?.Invoke();
         yield break;
     }
 }

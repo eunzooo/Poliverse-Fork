@@ -49,7 +49,7 @@ public class FoodManager : MonoBehaviour
 
         Debug.Log($"Spawning food {currentIndex}, prefab = {prefab} at {startPos}");
 
-        GameObject foodRoot = Instantiate(prefab, startPos, Quaternion.identity);
+        GameObject foodRoot = Instantiate(prefab, startPos, Quaternion.identity, transform);
         currentIndex++;
 
         // 조각(비주얼)을 먼저 조립해야 굴러오는 동안 화면에 실제로 보임

@@ -12,7 +12,7 @@ public class MiniGame2_6 : MiniGameBase
     //public override float hitWindowOverride => 0.5f;
 
     protected override bool UseRhythmJudgementScore => false;
-    protected override int ManualTotalNodeCount => 5;
+    protected override int ManualTotalNodeCount => -1;
 
     private bool ended;
 

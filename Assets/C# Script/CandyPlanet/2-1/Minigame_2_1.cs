@@ -27,17 +27,12 @@ public class Minigame_2_1 : MiniGameBase
 
     [SerializeField] private float duration;
 
-    private void Awake()
-    {
-        dropCake = GetComponent<DropCake>();
-        srChange = GetComponentInChildren<PlayerSrChange>();
-    }
     public override void StartGame()
     {
         base.StartGame();
+        dropCake = GetComponent<DropCake>();
+        srChange = GetComponentInChildren<PlayerSrChange>(true);
         ended = false;
-        // �߰� �ʱ�ȭ
-        // ��: instructionText.text = MinigameExplain;
     }
 
     public void Succeed()
@@ -54,17 +49,11 @@ public class Minigame_2_1 : MiniGameBase
     public override void OnRhythmEvent(string action)
     {
         if (ended) return;
-        Debug.Log($"{gameObject.name} ����޼���: {action}");
         action = action.Trim();
         if (action == "Input")
         {
             dropCake.MoveDownAndBack(duration);
         }
-        if (action == "Show")
-        {
-            CheckGameResult();
-        }
-
     }
     public override void OnPlayerInput(string action = null)
     {

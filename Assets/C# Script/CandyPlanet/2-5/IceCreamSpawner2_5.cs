@@ -21,7 +21,7 @@ public class IceCreamSpawner2_5 : MonoBehaviour
 
     public IceCream2_5 SpawnIceCream()
     {
-        GameObject obj = Instantiate(iceCreamPrefab, startPoint.position, Quaternion.identity);
+        GameObject obj = Instantiate(iceCreamPrefab, startPoint.position, Quaternion.identity, transform);
 
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         if (sr != null && iceCreamSprites != null && iceCreamSprites.Length > 0)

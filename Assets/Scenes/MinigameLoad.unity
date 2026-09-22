@@ -1506,6 +1506,9 @@ MonoBehaviour:
   gameStartEnd: {fileID: 559817388}
   planetCsvs:
   - {fileID: 4900000, guid: d69b17f77d95b8b48b88f46175f2c750, type: 3}
+  - {fileID: 4900000, guid: d69b17f77d95b8b48b88f46175f2c750, type: 3}
+  - {fileID: 4900000, guid: d69b17f77d95b8b48b88f46175f2c750, type: 3}
+  - {fileID: 4900000, guid: d69b17f77d95b8b48b88f46175f2c750, type: 3}
   playerStandingSprite: {fileID: 21300000, guid: 536edece401dcaa499a5627cdf60be39, type: 3}
   enemyStandingSprites:
   - {fileID: 21300000, guid: 6ef33d3ff42509c44b4dcca2a0ee153e, type: 3}

@@ -16,7 +16,7 @@ public class SpawnRing : MonoBehaviour
         {
             float offsetX = Random.Range(minOffsetX, maxOffsetX);
             Vector3 pos = spawnPoint.position + new Vector3(offsetX, 0);
-            Instantiate(ringPrefab, pos, Quaternion.identity);
+            Instantiate(ringPrefab, pos, Quaternion.identity, transform);
         }
     }
 }

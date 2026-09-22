@@ -294,7 +294,7 @@ public class Minigame_2_13 : MiniGameBase
             return;
         }
 
-        currentProjectile = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
+        currentProjectile = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity, transform);
 
         projectileMotionRoutine = StartCoroutine(MoveRoutine(
             currentProjectile,
